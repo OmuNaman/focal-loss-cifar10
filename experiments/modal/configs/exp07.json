@@ -1,0 +1,1 @@
+{"exp_id":"exp07","loss":"focal","gamma":3.0,"split":"lt100","imb_factor":100,"epochs":30}

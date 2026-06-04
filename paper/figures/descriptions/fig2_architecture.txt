@@ -1,0 +1,51 @@
+Small CNN Architecture
+
+IMPORTANT: Pure white background (#FFFFFF). No gray tint, no gradient.
+
+== CONTEXT ==
+A left-to-right block diagram of a small convolutional neural network used for CIFAR-10
+classification: three convolutional blocks, then a global average pool and a small classifier head.
+
+== LAYOUT ==
+- Direction: left-to-right, single horizontal pipeline.
+
+== COMPONENTS ==
+1. Input
+   - Shape: rounded rectangle
+   - Color: light gray #E0E0E0
+   - Label: "Input 32x32x3"
+2. Conv Block 1
+   - Shape: rectangle
+   - Color: light blue #B3D9FF
+   - Label: "Conv Block 1  (32 ch)"
+   - Sub-label below: "Conv-BN-ReLU x2 + MaxPool"
+3. Conv Block 2
+   - Shape: rectangle
+   - Color: light blue #B3D9FF
+   - Label: "Conv Block 2  (64 ch)"
+   - Sub-label below: "Conv-BN-ReLU x2 + MaxPool"
+4. Conv Block 3
+   - Shape: rectangle
+   - Color: light blue #B3D9FF
+   - Label: "Conv Block 3  (128 ch)"
+   - Sub-label below: "Conv-BN-ReLU x2 + MaxPool"
+5. Global Average Pool
+   - Shape: rounded rectangle
+   - Color: lavender #D4B8E6
+   - Label: "Global Avg Pool"
+6. FC + Dropout
+   - Shape: rounded rectangle
+   - Color: soft green #B8E6B8
+   - Label: "FC 128 + ReLU + Dropout 0.3"
+7. Output
+   - Shape: rounded rectangle
+   - Color: peach #FFD4B8
+   - Label: "FC 10 (softmax)"
+
+== CONNECTIONS ==
+Solid black arrows left to right connecting each component in order: Input -> Conv Block 1 ->
+Conv Block 2 -> Conv Block 3 -> Global Avg Pool -> FC + Dropout -> Output.
+
+== STYLE ==
+Clean academic illustration. Sans-serif font. Pastel palette. White background (#FFFFFF).
+Readable labels, channel counts visible. Professional, uncluttered.

@@ -1,0 +1,63 @@
+Controlled Experimental Design Overview
+
+IMPORTANT: Pure white background (#FFFFFF). No gray tint, no gradient.
+
+== CONTEXT ==
+A clean academic flowchart showing a controlled experiment: one fixed CNN is trained under two
+loss functions and two class distributions, then evaluated on four metrics.
+
+== LAYOUT ==
+- Direction: left-to-right, four columns.
+- Column 1: the research question box.
+- Column 2: the fixed model box.
+- Column 3: two stacked branch boxes (loss) crossed with two (distribution).
+- Column 4: the four evaluation metric boxes.
+
+== COMPONENTS ==
+1. Research Question
+   - Shape: rounded rectangle
+   - Color: light gray #E0E0E0
+   - Label: "Does focal loss beat cross-entropy?"
+   - Position: far left, vertically centered
+2. Fixed Small CNN
+   - Shape: rounded rectangle
+   - Color: light blue #B3D9FF
+   - Label: "Fixed Small CNN (0.31M params)"
+   - Position: second column, centered
+3. Loss = Cross-Entropy
+   - Shape: rounded rectangle
+   - Color: soft green #B8E6B8
+   - Label: "Cross-Entropy"
+   - Position: third column, upper
+4. Loss = Focal
+   - Shape: rounded rectangle
+   - Color: soft green #B8E6B8
+   - Label: "Focal Loss (gamma = 1, 2, 3)"
+   - Position: third column, second row
+5. Split = Balanced
+   - Shape: rounded rectangle
+   - Color: lavender #D4B8E6
+   - Label: "Balanced CIFAR-10"
+   - Position: third column, third row
+6. Split = Long-tailed
+   - Shape: rounded rectangle
+   - Color: lavender #D4B8E6
+   - Label: "Long-tailed CIFAR-10-LT (x100)"
+   - Position: third column, lower
+7. Metrics
+   - Shape: four small rounded rectangles stacked
+   - Color: peach #FFD4B8
+   - Labels: "Top-1 Accuracy", "Calibration (ECE)", "Macro-F1", "Worst-class Accuracy"
+   - Position: far right column
+
+== CONNECTIONS ==
+1. Research Question -> Fixed Small CNN: solid black arrow
+2. Fixed Small CNN -> Cross-Entropy: solid black arrow
+3. Fixed Small CNN -> Focal Loss: solid black arrow
+4. Fixed Small CNN -> Balanced CIFAR-10: solid black arrow, label "vary only these two factors"
+5. Fixed Small CNN -> Long-tailed CIFAR-10-LT: solid black arrow
+6. All four (losses and splits) -> the metric stack: solid black arrows converging right
+
+== STYLE ==
+Clean academic illustration. Sans-serif font. Pastel palette. White background (#FFFFFF).
+Clear, readable labels. Minimal, professional, not cluttered.

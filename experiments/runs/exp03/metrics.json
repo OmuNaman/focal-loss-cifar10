@@ -1,0 +1,40 @@
+{
+  "exp_id": "exp03",
+  "loss": "focal",
+  "gamma": 2.0,
+  "split": "balanced",
+  "epochs": 30,
+  "n_params": 305706,
+  "test_acc": 0.8728,
+  "best_acc": 0.8728,
+  "ece": 0.066,
+  "macro_f1": 0.8724,
+  "worst_class_acc": 0.715,
+  "per_class_acc": [
+    0.894,
+    0.942,
+    0.812,
+    0.715,
+    0.869,
+    0.83,
+    0.919,
+    0.882,
+    0.937,
+    0.928
+  ],
+  "class_hist": [
+    5000,
+    5000,
+    5000,
+    5000,
+    5000,
+    5000,
+    5000,
+    5000,
+    5000,
+    5000
+  ],
+  "train_minutes": 3.12,
+  "smoke": false,
+  "device": "cuda"
+}

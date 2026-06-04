@@ -1,0 +1,19 @@
+# downloaded papers (copyright) — keep the review, not the PDFs
+literature/papers/*.pdf
+
+# python
+**/__pycache__/
+*.pyc
+
+# LaTeX build artifacts (keep paper.tex and paper.pdf)
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.synctex.gz
+paper/pass1.txt
+paper/pass2.txt
+
+# modal run logs
+experiments/run_all.log
