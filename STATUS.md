@@ -16,7 +16,7 @@
 | 6 | Write paper           | ✅ done | paper/paper.tex | |
 | 7 | Compile paper         | ✅ done | paper/paper.pdf | 4 pages, refs resolved |
 | 8 | GitHub repo           | ✅ done | https://github.com/OmuNaman/focal-loss-cifar10 | |
-| 9 | Project website       | ✅ done | http://itsnaman.me/focal-loss-cifar10/ | GitHub Pages, main /docs |
+| 9 | Project website       | ✅ done | http://itsnaman.me/focal-loss-cifar10/ | Built & served (github.io 301→custom domain). ⚠️ itsnaman.me HTTPS cert in bad_authz state (pre-existing, user domain) — page loads once cert renews. |
 
 Repo: https://github.com/OmuNaman/focal-loss-cifar10
 Website: http://itsnaman.me/focal-loss-cifar10/
