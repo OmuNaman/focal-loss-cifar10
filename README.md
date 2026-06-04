@@ -6,7 +6,7 @@ and augmentation fixed and vary only the loss (cross-entropy vs focal loss, γ�
 class distribution (balanced CIFAR-10 vs long-tailed CIFAR-10-LT, imbalance 100).
 
 📄 **Paper:** [paper/paper.pdf](paper/paper.pdf)
-🌐 **Project page:** _(added after the website is deployed)_
+🌐 **Project page:** [itsnaman.me/focal-loss-cifar10](http://itsnaman.me/focal-loss-cifar10/)
 
 ## TL;DR
 - **No** — on balanced CIFAR-10, **cross-entropy wins on accuracy (87.90%)**; focal loss never beats it and gets worse as γ grows. Focal loss only helps *calibration*, and only at γ=1 (ECE 0.0154 vs 0.0337).
