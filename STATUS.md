@@ -15,8 +15,10 @@
 | 5 | Figures               | ✅ done | paper/figures/output/ | 6 figs, all verified |
 | 6 | Write paper           | ✅ done | paper/paper.tex | |
 | 7 | Compile paper         | ✅ done | paper/paper.pdf | 4 pages, refs resolved |
-| 8 | GitHub repo           | 🔄 in-progress | (url) | |
-| 9 | Project website       | ⬜ pending | website/ | |
+| 8 | GitHub repo           | ✅ done | https://github.com/OmuNaman/focal-loss-cifar10 | |
+| 9 | Project website       | 🔄 in-progress | website/ | |
+
+Repo: https://github.com/OmuNaman/focal-loss-cifar10
 
 ## Key Decisions Log
 - 2026-06-04: Slug = `focal-loss-cifar10`. Dry-run validation of the full pipeline on a small, cheap, well-understood problem.

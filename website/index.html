@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>When Does Focal Loss Help? — Focal Loss vs Cross-Entropy on CIFAR-10</title>
+  <meta name="description" content="A controlled study of focal loss vs cross-entropy for CIFAR-10 classification with a small CNN, on balanced and long-tailed data." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    h1, h2, .serif { font-family: 'Newsreader', Georgia, serif; }
+    .prose-narrow { max-width: 54rem; }
+    pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+  <header class="px-6 pt-20 pb-12 text-center">
+    <div class="mx-auto prose-narrow">
+      <h1 class="text-3xl md:text-5xl font-semibold leading-tight text-stone-900">When Does Focal Loss Help?</h1>
+      <p class="mt-3 text-lg md:text-xl text-stone-600 serif">A Controlled Comparison of Focal Loss and Cross-Entropy for Small-CNN Image Classification on Balanced and Long-Tailed CIFAR-10</p>
+      <p class="mt-6 text-lg text-stone-700">Naman Dwivedi, Raj Dandekar, Rajat Dandekar, Sreedath Panat</p>
+      <p class="mt-1 text-sm text-stone-500">Vizuara AI Labs &middot; hello@vizuara.com</p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="static/paper.pdf" class="px-5 py-2 rounded-full bg-stone-900 text-white text-sm font-medium hover:bg-stone-700 transition">📄 Paper (PDF)</a>
+        <a href="https://github.com/OmuNaman/focal-loss-cifar10" class="px-5 py-2 rounded-full bg-stone-900 text-white text-sm font-medium hover:bg-stone-700 transition">💻 Code</a>
+        <a href="#bibtex" class="px-5 py-2 rounded-full border border-stone-300 text-stone-700 text-sm font-medium hover:bg-stone-100 transition">📑 BibTeX</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="px-6 py-8">
+    <div class="mx-auto prose-narrow">
+      <div class="rounded-xl bg-white border border-stone-200 p-6 shadow-sm">
+        <p class="text-stone-800 leading-relaxed"><span class="font-semibold">TL;DR —</span> On <span class="font-semibold">balanced</span> CIFAR-10, cross-entropy wins on accuracy (87.90%); focal loss never beats it and only helps calibration at low &gamma;. Under <span class="font-semibold">class imbalance</span> the verdict flips: focal loss (&gamma;=3) wins on every metric, lifting worst-class accuracy from 3.6% to 13.3% (3.7&times;). Focal loss is a tool for imbalance and calibration, not a generic accuracy upgrade.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-10">
+    <div class="mx-auto prose-narrow">
+      <h2 class="text-2xl font-semibold text-stone-900 mb-4">Abstract</h2>
+      <p class="text-stone-700 leading-relaxed text-justify">Focal loss was introduced to address foreground-background imbalance in dense object detection, yet it is often adopted as a generic drop-in replacement for cross-entropy in image classification. We ask a precise question: does focal loss beat cross-entropy for CIFAR-10 classification with a small convolutional neural network? Holding a 0.31M-parameter CNN, optimizer, schedule, and augmentation fixed, we vary only the loss (cross-entropy vs focal loss with &gamma;&isin;{1,2,3}) and the class distribution (balanced CIFAR-10 vs long-tailed CIFAR-10-LT, imbalance factor 100), and report top-1 accuracy, Expected Calibration Error (ECE), macro-F1, and worst-class accuracy. On balanced CIFAR-10, cross-entropy attains the best accuracy (87.90%); focal loss never exceeds it and degrades monotonically with &gamma;, its only benefit being improved calibration at &gamma;=1 (ECE 0.0154 vs 0.0337). Under class imbalance the conclusion reverses: focal loss with &gamma;=3 improves accuracy (59.10% vs 57.66%), macro-F1 (by 3.2 points), worst-class accuracy (3.6% to 13.3%), and calibration (ECE 0.220 to 0.050). We conclude that focal loss is a tool for imbalance and calibration, not a generic accuracy upgrade.</p>
+    </div>
+  </section>
+
+  <section class="px-6 py-10">
+    <div class="mx-auto prose-narrow">
+      <figure class="text-center">
+        <img src="static/figures/fig1_design.png" alt="Experimental design" class="mx-auto rounded-lg shadow-sm border border-stone-200 bg-white" />
+        <figcaption class="mt-3 text-sm text-stone-500">Controlled design: only the loss function and class distribution vary; the model, optimizer, schedule, and augmentation are fixed.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="px-6 py-10">
+    <div class="mx-auto prose-narrow">
+      <h2 class="text-2xl font-semibold text-stone-900 mb-6">Results</h2>
+
+      <h3 class="text-lg font-semibold text-stone-800 mb-3">Balanced CIFAR-10 &mdash; cross-entropy wins accuracy</h3>
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-sm border-collapse">
+          <thead><tr class="border-b-2 border-stone-300 text-left">
+            <th class="py-2 pr-4">Loss</th><th class="py-2 pr-4">Accuracy</th><th class="py-2 pr-4">ECE</th><th class="py-2 pr-4">Macro-F1</th><th class="py-2 pr-4">Worst-class</th>
+          </tr></thead>
+          <tbody>
+            <tr class="border-b border-stone-200"><td class="py-2 pr-4 font-semibold">Cross-entropy</td><td class="py-2 pr-4 font-semibold">0.8790</td><td class="py-2 pr-4">0.0337</td><td class="py-2 pr-4 font-semibold">0.8786</td><td class="py-2 pr-4">0.729</td></tr>
+            <tr class="border-b border-stone-200"><td class="py-2 pr-4">Focal &gamma;=1</td><td class="py-2 pr-4">0.8744</td><td class="py-2 pr-4 font-semibold">0.0154</td><td class="py-2 pr-4">0.8741</td><td class="py-2 pr-4">0.743</td></tr>
+            <tr class="border-b border-stone-200"><td class="py-2 pr-4">Focal &gamma;=2</td><td class="py-2 pr-4">0.8728</td><td class="py-2 pr-4">0.0660</td><td class="py-2 pr-4">0.8724</td><td class="py-2 pr-4">0.715</td></tr>
+            <tr class="border-b border-stone-200"><td class="py-2 pr-4">Focal &gamma;=3</td><td class="py-2 pr-4">0.8638</td><td class="py-2 pr-4">0.1096</td><td class="py-2 pr-4">0.8632</td><td class="py-2 pr-4">0.692</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="text-lg font-semibold text-stone-800 mb-3">Long-Tailed CIFAR-10-LT (imbalance 100) &mdash; focal loss wins everything</h3>
+      <div class="overflow-x-auto mb-8">
+        <table class="w-full text-sm border-collapse">
+          <thead><tr class="border-b-2 border-stone-300 text-left">
+            <th class="py-2 pr-4">Loss</th><th class="py-2 pr-4">Accuracy</th><th class="py-2 pr-4">ECE</th><th class="py-2 pr-4">Macro-F1</th><th class="py-2 pr-4">Worst-class</th>
+          </tr></thead>
+          <tbody>
+            <tr class="border-b border-stone-200"><td class="py-2 pr-4">Cross-entropy</td><td class="py-2 pr-4">0.5766</td><td class="py-2 pr-4">0.2202</td><td class="py-2 pr-4">0.5332</td><td class="py-2 pr-4">0.036</td></tr>
+            <tr class="border-b border-stone-200"><td class="py-2 pr-4">Focal &gamma;=2</td><td class="py-2 pr-4">0.5908</td><td class="py-2 pr-4">0.0967</td><td class="py-2 pr-4">0.5618</td><td class="py-2 pr-4">0.114</td></tr>
+            <tr class="border-b border-stone-200"><td class="py-2 pr-4 font-semibold">Focal &gamma;=3</td><td class="py-2 pr-4 font-semibold">0.5910</td><td class="py-2 pr-4 font-semibold">0.0503</td><td class="py-2 pr-4 font-semibold">0.5655</td><td class="py-2 pr-4 font-semibold">0.133</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure class="text-center mb-10">
+        <img src="static/figures/fig5_perclass.png" alt="Per-class accuracy" class="mx-auto rounded-lg shadow-sm border border-stone-200 bg-white" />
+        <figcaption class="mt-3 text-sm text-stone-500">Per-class accuracy ordered by training frequency. Focal loss (&gamma;=3) rescues the rarest classes where cross-entropy collapses.</figcaption>
+      </figure>
+      <figure class="text-center">
+        <img src="static/figures/fig4_imbalanced.png" alt="Imbalanced comparison" class="mx-auto rounded-lg shadow-sm border border-stone-200 bg-white" />
+        <figcaption class="mt-3 text-sm text-stone-500">Under imbalance, focal loss improves accuracy, macro-F1, and especially worst-class accuracy over cross-entropy.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="bibtex" class="px-6 py-10">
+    <div class="mx-auto prose-narrow">
+      <h2 class="text-2xl font-semibold text-stone-900 mb-4">BibTeX</h2>
+      <pre class="bg-stone-900 text-stone-100 rounded-lg p-5 text-xs leading-relaxed overflow-x-auto">@misc{dwivedi2026focal,
+  title  = {When Does Focal Loss Help? A Controlled Comparison of Focal Loss and
+            Cross-Entropy for Small-CNN Image Classification on Balanced and
+            Long-Tailed CIFAR-10},
+  author = {Dwivedi, Naman and Dandekar, Raj and Dandekar, Rajat and Panat, Sreedath},
+  year   = {2026},
+  note   = {Vizuara AI Labs}
+}</pre>
+    </div>
+  </section>
+
+  <footer class="px-6 py-12 text-center text-sm text-stone-400">
+    <p>Vizuara AI Labs &middot; Produced autonomously by the Vizuara research pipeline.</p>
+  </footer>
+
+</body>
+</html>
